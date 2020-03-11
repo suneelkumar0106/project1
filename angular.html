@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="myApp" w3-test-directive ng-controller="myCtrl"
+        ng-init="myCol='green';personal='suneel kumar';names=['santhosh','masthan','harish']">
+        <h3>This is about Angular js</h3>
+        <b>Name: </b><input type="text" ng-model="name" placeholder="Type something here">
+        <h1 ng-bind="name"></h1>
+        <h1>iam <span ng-bind="personal"></span></h1>
+        <p>do add and sub:{{20-2}}</p>
+        First Name: <input type="text" ng-model="firstName"><br><br>
+        Last Name: <input type="text" ng-model="lastName"><br><br>
+
+        Full Name: {{firstName +" "+ lastName}} <br>
+        <input type="text" style="background-color:{{myCol}}" ng-model="myCol"><br>
+        {{ secondName + " " + thirdName }} <br>
+
+        <ul>
+            <li ng-repeat="x in names">
+                {{ x }}
+            </li>
+        </ul>
+
+
+    </div>
+
+
+
+
+    <script>
+        var txt = angular.module('myApp', []);
+        txt.controller('myCtrl', function ($scope) {
+            $scope.firstName = "suneel"
+            $scope.lastName = "kumar"
+
+        })
+        // txt.directive("w3TestDirective", function () {
+        //     return {
+        //         template: "I was made in a directive constructor!"
+        //     };
+        // });
+
+    </script>
+    <script src="myApp.js"></script>
+    <script src="myCtrl.js"></script>
+
+</body>
+
+</html>
