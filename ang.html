@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 3px;
+            width: 30%;
+            margin: auto;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+
+    <div ng-app="myApp" ng-controller="myCtrl" ng-init="mySwitch='true'">
+
+        <ul>
+            <li ng-repeat="x in names | orderBy:'city'">
+                <h4>{{ x.name +','+" " + x.city | uppercase}}</h4>
+            </li>
+            <li>
+                <h4> Price of product:{{ price | currency }}</h4>
+            </li>
+            <!-- <form name="myForm"></form> -->
+            <b>Suggestions:</b> <input type="text" ng-model="test" name="myName"><br>
+            <!-- <span ng-show="myForm.myName.$error.text">Enter correct email</span></li> -->
+            <li ng-repeat="x in filters |filter :test">
+                {{ x }}
+            </li><br><br>
+            <!-- </form> -->
+            <li ng-repeat="x in myWelcome">
+                <h3>{{ x.Name + ','+ x.City +',' + x.Country}}</h3>
+
+            </li>
+        </ul>
+        <p> The url of the page</p>
+        <h4> <a href="#" target="blank">{{myUrl}}</a></h4>
+
+        <h1>{{statuscode}}</h1>
+        <h1>{{statustext}}</h1>
+
+        <h3>{{myHeader}}</h3>
+        <table>
+            <tr>
+                <th>
+                    <h3>S.No.</h3>
+                </th>
+                <th ng-click="orderByMe('name')">
+                    <h3>Name</h3>
+                </th>
+                <th ng-click="orderByMe('city')">
+                    <h3>city</h3>
+                </th>
+            </tr>
+            <tr ng-repeat="x in names | orderBy:myOrderBy">
+                <td>{{$index +1}}</td>
+                <td>
+                    <h3>{{ x.name}}</h3>
+                </td>
+                <td>
+                    <h3>{{ x.city}}</h3>
+                </td>
+            </tr>
+        </table>
+      
+        <button ng-disabled="mySwitch"> Click Me </button>
+        <input type="checkbox" ng-model="mySwitch" />select
+        <p>{{mySwitch}}</p>
+        <h3 ng-mousemove="count=count+1">Mouse over</h3>
+        <h2> {{count}}</h2>
+        <select ng-model="selectedLists" ng-options="x.model for x in lists">
+            <!-- <option ng-repeat="x in lists">{{x.model}}</option>
+         -->
+        </select>
+        <h2>Your Selected mobile is:"{{selectedLists.model}}"</h2>
+        <h4>Colour :{{selectedLists.color}}</h4>
+    
+
+
+        
+
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $location, $http, $timeout) {
+            
+            $scope.count = 0;
+
+            $scope.myHeader = "hey suneel";
+            $timeout(function () {
+                $scope.myHeader = "To create your own service, connect your service to the module";
+            }, 4000);
+
+            $http.get("index.php").then(function (response) {
+                $scope.myWelcome = response.data.record;
+            });
+            // function(response){
+
+            // $scope.myWelcome = "The content in 'welcome.htm' is nothing"
+            //     // $scope.statuscode = response.status;
+            //     // $scope.statustext = response.statusText;
+            // })
+            $scope.myUrl = $location.absUrl();
+            $scope.names = [
+                { name: 'suneel kumar', city: 'nellore' },
+                { name: 'raju', city: 'bangalore' },
+                { name: 'pranav', city: 'kerala' },
+                { name: 'anil', city: 'tirupathi' },
+                { name: 'harish', city: 'hyderabad' },
+                { name: 'kiran', city: 'madanapalli' },
+                { name: 'santhosh', city: 'mangalore' },
+            ];
+            $scope.orderByMe = function (x) {
+                $scope.myOrderBy = x;
+
+
+            }
+            $scope.price = 60
+            $scope.filters = [
+                'ravi',
+                'suneel',
+                'Masthan',
+                'harish',
+                'santhosh',
+                'Gireesh',
+                'hari',
+                'mani',
+                'barath',
+                'chandu'
+            ];
+            $scope.lists = [
+                { model:"Redmi note 8pro", color:"navy blue"},
+                {model:"Real me xt", color:"white"},
+                {model:"Poco x2", color:"black"}
+              ];
+        });
+
+
+    </script>
+</body>
+
+</html>
